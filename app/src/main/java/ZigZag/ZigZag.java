@@ -57,28 +57,8 @@ public class ZigZag {
         return  lista;
     }
 
-    public List ContedionoLista(){
 
-        List<Character> ListaResultado = new ArrayList<Character>();
-        char TamañoText[]=Texto.toCharArray();
-        char res=' ';
-
-        if (!ListaCaracteresTotales().isEmpty()) {
-            for (int i = 0; i < TamañoOla(); i++) {
-                res = ListaCaracteresTotales().remove(i);
-                ListaResultado.add(res);
-            }
-        }
-        else {
-
-            ListaResultado.add('1');
-        }
-
-        return ListaResultado;
-    }
-
-
-    public List<List<Character>> ListasCompresion(){
+    public List<List<Character>> ListasCifrado(){
         String TextoCompreso="";
 
         List<List<Character>> ListasOlas=new ArrayList<>();
@@ -87,7 +67,6 @@ public class ZigZag {
         char res=' ';
 
         List<Character> Temporal= ListaCaracteresTotales();
-
 
         for (int i=0; i<=NumeroOlas(); i++){ //5
             List<Character> ListaPrueba = new ArrayList<>();
@@ -103,52 +82,63 @@ public class ZigZag {
                             ListaPrueba.add('|');
 
                         }
-                        //ListasOlas.add(ListaPrueba);
                         j=TamañoOla()+1;
                     }
 
                 }
 
                 ListasOlas.add(ListaPrueba);
-                //ListaPrueba.clear();
+
             }
             else {
 
                 ListaPrueba.add('1');
             }
-
-
         }
-
-
 
         return ListasOlas;
     }
 
-    public String Compresion(){
-
-        String caracter="";
-        String compresion="";
-        List<String> Litaaa= new ArrayList<>();
+    public String Cifrado(){
 
 
-        for (int i=0; i <=ListasCompresion().get(0).size()-1; i++ ){
+        String cifrado="";
+        List<List<Character>> temporal=ListasCifrado();
 
-            caracter = ListasCompresion().get(0).get(i).toString() + ListasCompresion().get(1).get(i).toString() +
-                    ListasCompresion().get(2).get(i).toString() + ListasCompresion().get(3).get(i).toString()+
-            ListasCompresion().get(4).get(i).toString();
+        int ultimo=0;
+        ultimo = TamañoOla()-3;
+        for (int i=0; i <=ListasCifrado().get(0).size()-1; i++ ){
+
+            //cifrado = cifrado + temporal.get(0).get(i).toString() + temporal.get(1).get(i).toString() +
+            //temporal.get(2).get(i).toString() + temporal.get(3).get(i).toString()+
+            //temporal.get(4).get(i).toString();
 
 
-            Litaaa.add(caracter);
+            for(int j=0; j<=NumeroOlas();j++){
+
+                if (j==0 && i==0){
+                    for (int x=0;x<=NumeroOlas();x++) {
+                        cifrado = cifrado + temporal.get(x).remove(i).toString();
+                    }
+                    //i=i+1;
+                }
+
+               // ultimo = temporal.get(j).size()-1;
+                if ( (temporal.get(j).size()-1) >=0){
+                    cifrado = cifrado + temporal.get(j).remove(0).toString();//s
+                }
+                if ((temporal.get(j).size()-1)>0) {
+                    cifrado = cifrado + temporal.get(j).remove(temporal.get(j).size() - 1).toString();
+                }
+
+            }
+
         }
 
-        compresion = Litaaa.toString();
-        for (int i=0;i<Litaaa.size(); i++){
-            compresion=ListasCompresion().get(i).toString();
-        }
-
-        return compresion;
+        return cifrado;
     }
+
+
 
 }
 
