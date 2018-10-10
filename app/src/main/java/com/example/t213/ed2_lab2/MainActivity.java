@@ -12,13 +12,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ZigZag hola= new ZigZag(3,"Prueba de zig zag");
+        ZigZag hola= new ZigZag(6,"ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO ESTEESUNTEXTO");
 
         String yiy="";
         yiy = hola.Cifrado();
-        DescifradoZigZag prueba= new DescifradoZigZag(3, yiy);
+        DescifradoZigZag prueba= new DescifradoZigZag(6, yiy);
         prueba.ListaDescifrado();
-        prueba.Descifrado();
+        String algo="";
+        algo=prueba.Descifrado();
         int p=0;
         //Prueba de zig zag
     }

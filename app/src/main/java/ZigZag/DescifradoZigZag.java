@@ -96,30 +96,55 @@ public class DescifradoZigZag {
         String descifrado = "";
         List<List<Character>> temporal = ListaDescifrado();
 
-        for (int i = 0; i < temporal.get(0).size() - 1; i++) {
+
+        int comienzo=0;
+        int ultimo=0;
+        //int tamaño=temporal.get(0).size()-2;
+        int tamaño=temporal.get(0).size()-1;
+
+        tamaño=niveles;
+        for (int i = 0; i < 1 ; i++) {
 
 
-            for (int j = 0; j <= temporal.get(0).size()-1; j++) {
-                if (j == 0 && i == 0) {
-                    for (int x = 0; x < temporal.get(0).size()-1; x++) {
+            if (comienzo == 1) {
+                tamaño++;
+            }
+
+            for (int r = 0; r < NumeroOlas(); r++) {
+
+
+
+                for (int j = comienzo; j < tamaño; j++) {
+
+                    descifrado = descifrado + temporal.get(j).remove(0).toString();
+
+                    ultimo = j;
+                }
+                if (i == 0) {
+                    ultimo = ultimo - 1;
+                }
+                for (int x = ultimo; x >= 0; x--) {
+
+                    if (temporal.get(x).size()!=0) {
                         descifrado = descifrado + temporal.get(x).remove(0).toString();
-                    }
-                    j=j+1;
-                }
+                        if (temporal.get(x).size() == 0) {
+                            x = x - 1;
+                        }
 
-                for (int h=j; h< temporal.get(0).size()-1; h --){
-                    if (h>=0) {
-                        descifrado = descifrado + temporal.get(h).remove(0).toString();
-                    }
-                    else{
-                        h= temporal.get(0).size();
+                    }else{
+                        x = x - 1;
                     }
                 }
+                comienzo = 0;
+                comienzo = comienzo + 1;
 
             }
 
 
+
         }
+
+
         return descifrado;
     }
 
