@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +19,10 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 import ZigZag.ZigZag;
 import ZigZag.DescifradoZigZag;
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvLectura;
     TextView tvDescifrar;
     EditText txtLlave;
+    String textoCifrar;
     int nivel;
 
     @Override
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         int p=0;
         //Prueba de zig zag
 
+        grabar("tardee", algo);
 
 
         //Pidiendo permiso para manejar almacenamiento externo
@@ -73,21 +78,52 @@ public class MainActivity extends AppCompatActivity {
                 String Nivel = txtLlave.getText().toString();
                 nivel = Integer.parseInt(Nivel);
                 performFileSearch();
+                ZigZag hola= new ZigZag(nivel,textoCifrar);
+                String cifrado=hola.Cifrado();
+                tvLectura.setText(cifrado);
+                //crear archivo con cifrado
+                grabar("cifrado", cifrado);
+
             }
         });
 
         btnDescifrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String TextoDescifrar=tvLectura.getText().toString();
-                DescifradoZigZag prueba= new DescifradoZigZag(nivel, TextoDescifrar);
+
+                performFileSearch();
+                DescifradoZigZag prueba= new DescifradoZigZag(nivel, textoCifrar);
                 String descifrado = prueba.Descifrado();
                 tvDescifrar.setText(descifrado);
+                //crear archivo descifrado
+                grabar("descifrado", descifrado);
             }
         });
 
 
     }
+
+    public void grabar(String nombre, String contenido) {
+
+        try {
+            File tarjeta = Environment.getExternalStorageDirectory();
+            Toast.makeText(this,tarjeta.getAbsolutePath(),Toast.LENGTH_LONG).show();
+            File file = new File(tarjeta.getAbsolutePath(), nombre + ".txt");
+            OutputStreamWriter osw = new OutputStreamWriter(
+                    new FileOutputStream(file));
+            osw.write(contenido);
+            osw.flush();
+            osw.close();
+            Toast.makeText(this, "Los datos fueron grabados correctamente",
+                    Toast.LENGTH_SHORT).show();
+            //et1.setText("");
+            //et2.setText("");
+        } catch (IOException ioe) {
+            Toast.makeText(this, "No se pudo grabar",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     //Con esto se lee el contenido del archivo seleccionado
     private String readText(String input)
@@ -133,10 +169,7 @@ public class MainActivity extends AppCompatActivity {
                 path = path.substring(path.indexOf(":") + 1);
                 Toast.makeText(this,""+path,Toast.LENGTH_SHORT).show();
 
-                String TextoComprimir=readText(path);
-
-                ZigZag hola= new ZigZag(nivel,TextoComprimir);
-                tvLectura.setText(hola.Cifrado());
+                textoCifrar=readText(path);
 
             }
         }
