@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Variables;
     Button btnCargar;
+    Button btnCifrar;
     Button btnDescifrar;
     TextView tvLectura;
     TextView tvDescifrar;
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         int p=0;
         //Prueba de zig zag
 
-        grabar("tardee", algo);
 
 
         //Pidiendo permiso para manejar almacenamiento externo
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
         }
 
+        btnCifrar = (Button) findViewById(R.id.btnCifrar);
         btnCargar = (Button) findViewById(R.id.btnCargar);
         btnDescifrar = (Button) findViewById(R.id.btnDescifrar);
         tvLectura = (TextView) findViewById(R.id.tvLectura);
@@ -75,30 +76,39 @@ public class MainActivity extends AppCompatActivity {
         btnCargar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Nivel = txtLlave.getText().toString();
-                nivel = Integer.parseInt(Nivel);
+
                 performFileSearch();
-                ZigZag hola= new ZigZag(nivel,textoCifrar);
-                String cifrado=hola.Cifrado();
-                tvLectura.setText(cifrado);
-                //crear archivo con cifrado
-                grabar("cifrado", cifrado);
 
             }
         });
 
+
         btnDescifrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                performFileSearch();
-                DescifradoZigZag prueba= new DescifradoZigZag(nivel, textoCifrar);
-                String descifrado = prueba.Descifrado();
+                String Nivel = txtLlave.getText().toString();
+                nivel = Integer.parseInt(Nivel);
+                DescifradoZigZag pruebaa= new DescifradoZigZag(nivel, textoCifrar);
+                String descifrado = pruebaa.Descifrado();
                 tvDescifrar.setText(descifrado);
                 //crear archivo descifrado
                 grabar("descifrado", descifrado);
             }
         });
+
+        btnCifrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Nivel = txtLlave.getText().toString();
+                nivel = Integer.parseInt(Nivel);
+                ZigZag holaa = new ZigZag(nivel, textoCifrar);
+                String cifrado = holaa.Cifrado();
+                tvLectura.setText(cifrado);
+                //crear archivo con cifrado
+                grabar("cifrado", cifrado);
+            }
+        });
+
 
 
     }
