@@ -59,16 +59,17 @@ public class CifradoSDES {
 
     //Entrada: {00001} | {11000}
     //salida: 10100100
-    private int[] EightPrermutatiosn(){
+    private int[] EightPrermutationsLS1(){
         int eightpermutations[] = new int[8];
 
-        eightpermutations[0] = TenPermutations()[5];
-        eightpermutations[1] = TenPermutations()[2];
-        eightpermutations[2] = TenPermutations()[3];
-        eightpermutations[3] = TenPermutations()[7];
-        eightpermutations[4] = TenPermutations()[4];
-        eightpermutations[5] = TenPermutations()[9];
-        eightpermutations[6] = TenPermutations()[8];
+        eightpermutations[0] = LS_1()[5]; //6
+        eightpermutations[1] = LS_1()[2]; //3
+        eightpermutations[2] = LS_1()[6]; //7
+        eightpermutations[3] = LS_1()[3]; //4
+        eightpermutations[4] = LS_1()[7]; //8
+        eightpermutations[4] = LS_1()[4]; //5
+        eightpermutations[5] = LS_1()[9]; //10
+        eightpermutations[6] = LS_1()[8]; //9
 
         return eightpermutations;
     }
@@ -95,6 +96,7 @@ public class CifradoSDES {
 
         return ls_2;
     }
+
 
 
 }
