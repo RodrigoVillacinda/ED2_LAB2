@@ -24,8 +24,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
+import javax.crypto.spec.DESedeKeySpec;
+
 import ZigZag.ZigZag;
 import ZigZag.DescifradoZigZag;
+import S_DES.CifradoSDES;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         ZigZag hola= new ZigZag(3,"ESTEESUNTEXTO");
 
@@ -203,4 +209,3 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
-//pueba
