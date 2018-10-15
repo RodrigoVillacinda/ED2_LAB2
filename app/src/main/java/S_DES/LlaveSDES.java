@@ -68,9 +68,9 @@ public class LlaveSDES {
         eightpermutations[2] = LS_1()[6]; //7
         eightpermutations[3] = LS_1()[3]; //4
         eightpermutations[4] = LS_1()[7]; //8
-        eightpermutations[4] = LS_1()[4]; //5
-        eightpermutations[5] = LS_1()[9]; //10
-        eightpermutations[6] = LS_1()[8]; //9
+        eightpermutations[5] = LS_1()[4]; //5
+        eightpermutations[6] = LS_1()[9]; //10
+        eightpermutations[7] = LS_1()[8]; //9
 
         return eightpermutations;
     }
@@ -107,9 +107,9 @@ public class LlaveSDES {
         eightpermutations[2] = LS_2()[6]; //7
         eightpermutations[3] = LS_2()[3]; //4
         eightpermutations[4] = LS_2()[7]; //8
-        eightpermutations[4] = LS_2()[4]; //5
-        eightpermutations[5] = LS_2()[9]; //10
-        eightpermutations[6] = LS_2()[8]; //9
+        eightpermutations[5] = LS_2()[4]; //5
+        eightpermutations[6] = LS_2()[9]; //10
+        eightpermutations[7] = LS_2()[8]; //9
 
         return eightpermutations;
     }
