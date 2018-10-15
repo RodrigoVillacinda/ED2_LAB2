@@ -24,11 +24,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-import javax.crypto.spec.DESedeKeySpec;
-
 import ZigZag.ZigZag;
 import ZigZag.DescifradoZigZag;
-import S_DES.CifradoSDES;
 
 
 public class MainActivity extends AppCompatActivity {
