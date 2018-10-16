@@ -217,4 +217,15 @@ public class CifradoSDES {
         return  s0;
     }
 
+    private int[] S0andS1(){
+        int[] s0ands1 = new int[4];
+
+        s0ands1[0] = S0()[0];
+        s0ands1[1] = S0()[1];
+        s0ands1[2] = S0()[0];
+        s0ands1[3] = S0()[1];
+
+        return s0ands1;
+    }
+
 }
