@@ -228,4 +228,31 @@ public class CifradoSDES {
         return s0ands1;
     }
 
+    //PASO7: permutación de 4 bits, sobre la union de la box0 y box1
+    private int[] FourPermutations(){
+        int[] fourpermutations= new int[4];
+
+        fourpermutations[0] = S0andS1()[1]; //2
+        fourpermutations[1] = S0andS1()[3]; //4
+        fourpermutations[2] = S0andS1()[2]; //3
+        fourpermutations[3] = S0andS1()[0]; //1
+
+        return fourpermutations;
+    }
+
+    //PASO8: Paso3 XOR paso 7
+    private int[] LeftbitsXORFourpermutations(){
+        int[] leftbitsXORfourpemutations = new int[4];
+
+        leftbitsXORfourpemutations[0] = LeftBits()[0] ^ FourPermutations()[0];
+        leftbitsXORfourpemutations[1] = LeftBits()[1] ^ FourPermutations()[1];
+        leftbitsXORfourpemutations[2] = LeftBits()[2] ^ FourPermutations()[2];
+        leftbitsXORfourpemutations[3] = LeftBits()[3] ^ FourPermutations()[3];
+
+        return leftbitsXORfourpemutations;
+    }
+
+    
+
+
 }
