@@ -1,5 +1,7 @@
 package S_DES;
 
+import java.util.function.BinaryOperator;
+
 public class CifradoSDES {
 
     private int Key[];
@@ -76,6 +78,7 @@ public class CifradoSDES {
         return expandright;
     }
 
+    //paso6 opXORk1
     private int[] OPXORK1(){
         int[] opxork1= new int[8];
         int[] k1=K1;
@@ -90,6 +93,128 @@ public class CifradoSDES {
         opxork1[7] = ExpandRigh()[7] ^ k1[7];
 
         return opxork1;
+    }
+
+    private int[] S0(){
+        int[] s0 = new int[2];
+        int[] opxork1 = new int[8];
+        int row=0;
+        int column=0;
+
+        int roww=0;
+        int columnn=0;
+
+        opxork1[0] = OPXORK1()[0];
+        opxork1[1] = OPXORK1()[1];
+        opxork1[2] = OPXORK1()[2];
+        opxork1[3] = OPXORK1()[3];
+
+        int[][] box0=new int[4][4];
+        box0[0][0]=01;
+        box0[0][1]=00;
+        box0[0][2]=11;
+        box0[0][3]=10;
+
+        box0[1][0]=11;
+        box0[1][1]=00;
+        box0[1][2]=01;
+        box0[1][3]=00;
+
+        box0[2][0]=00;
+        box0[2][1]=10;
+        box0[2][2]=01;
+        box0[2][3]=11;
+
+        box0[3][0]=11;
+        box0[3][1]=01;
+        box0[3][2]=11;
+        box0[3][3]=00;
+
+
+        int o1 = opxork1[0];
+        int o2 = opxork1[3];
+
+        row = (o1*2) + (o2*1); //2
+
+
+        int i1 = opxork1[1];
+        int i2 = opxork1[2];
+
+        column =(i1*2) + (i2*1); //3
+
+        roww = box0[row][column]; //00
+
+        char[] rowColumn = Integer.toString(roww).toCharArray();
+
+        for (int i=0; i<3; i++){
+
+            columnn=rowColumn[i];
+            s0[i] = columnn;
+
+        }
+
+        return  s0;
+    }
+
+    private int[] S1(){
+        int[] s0 = new int[2];
+        int[] opxork1 = new int[8];
+        int row=0;
+        int column=0;
+
+        int roww=0;
+        int columnn=0;
+
+        opxork1[0] = OPXORK1()[4];
+        opxork1[1] = OPXORK1()[5];
+        opxork1[2] = OPXORK1()[6];
+        opxork1[3] = OPXORK1()[7];
+
+        int[][] box0=new int[4][4];
+        box0[0][0]=01;
+        box0[0][1]=00;
+        box0[0][2]=11;
+        box0[0][3]=10;
+
+        box0[1][0]=11;
+        box0[1][1]=00;
+        box0[1][2]=01;
+        box0[1][3]=00;
+
+        box0[2][0]=00;
+        box0[2][1]=10;
+        box0[2][2]=01;
+        box0[2][3]=11;
+
+        box0[3][0]=11;
+        box0[3][1]=01;
+        box0[3][2]=11;
+        box0[3][3]=00;
+
+
+        int o1 = opxork1[0];
+        int o2 = opxork1[3];
+
+        row = (o1*2) + (o2*1); //2
+
+
+        int i1 = opxork1[1];
+        int i2 = opxork1[2];
+
+        column =(i1*2) + (i2*1); //3
+
+        roww = box0[row][column]; //00
+
+        char[] rowColumn = Integer.toString(roww).toCharArray();
+
+        for (int i=0; i<3; i++){
+
+            columnn=rowColumn[i];
+            s0[i] = columnn;
+
+        }
+
+        return  s0;
     }
 
 }
