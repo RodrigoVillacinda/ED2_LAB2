@@ -3,11 +3,11 @@ package S_DES;
 public class LlaveSDES {
 
     private int Key[];
-    private String Text;
 
-    public LlaveSDES(int[] key, String text) {
+
+    public LlaveSDES(int[] key) {
         Key = key;
-        Text = text;
+
     }
 
     //Seleccionar clave: 1010000010
@@ -17,20 +17,21 @@ public class LlaveSDES {
         int tenpermutations[] = new int[10];
         int key[] = Key;
 
-        tenpermutations[2] = key[0]; //3
-        tenpermutations[4] = key[1]; //5
-        tenpermutations[1] = key[2]; //2
-        tenpermutations[6] = key[3]; //7
-        tenpermutations[3] = key[4]; //4
-        tenpermutations[9] = key[5]; //10
-        tenpermutations[0] = key[6]; //1
-        tenpermutations[8] = key[7]; //9
-        tenpermutations[7] = key[8]; //8
-        tenpermutations[5] = key[9]; //6
+        tenpermutations[0] = key[2]; //3
+        tenpermutations[1] = key[4]; //5
+        tenpermutations[2] = key[1]; //2
+        tenpermutations[3] = key[6]; //7
+        tenpermutations[4] = key[3]; //4
+        tenpermutations[5] = key[9]; //10
+        tenpermutations[6] = key[0]; //1
+        tenpermutations[7] = key[8]; //9
+        tenpermutations[8] = key[7]; //8
+        tenpermutations[9] = key[5]; //6
 
 
         return tenpermutations;
         //Salida: 3,5,2,7,4,10,1,9,8,6
+        //Key: 1000001100
     }
 
     //divide la llave en dos mitades+
@@ -42,25 +43,26 @@ public class LlaveSDES {
         int left[] = new int[5]; //{10000}
         int right[] = new int[5]; //{01100}
 
-        ls_1[0] = TenPermutations()[4]; //3
-        ls_1[1] = TenPermutations()[3]; //5
-        ls_1[2] = TenPermutations()[2]; //2
-        ls_1[3] = TenPermutations()[0]; //7
-        ls_1[4] = TenPermutations()[1]; //4
+        ls_1[0] = TenPermutations()[1]; //3
+        ls_1[1] = TenPermutations()[2]; //5
+        ls_1[2] = TenPermutations()[3]; //2
+        ls_1[3] = TenPermutations()[4]; //7
+        ls_1[4] = TenPermutations()[0]; //4
 
-        ls_1[5] = TenPermutations()[9]; //10
-        ls_1[6] = TenPermutations()[6]; //1
-        ls_1[7] = TenPermutations()[7]; //9
-        ls_1[8] = TenPermutations()[8]; //8
+        ls_1[5] = TenPermutations()[6]; //10
+        ls_1[6] = TenPermutations()[7]; //1
+        ls_1[7] = TenPermutations()[8]; //9
+        ls_1[8] = TenPermutations()[9]; //8
         ls_1[9] = TenPermutations()[5]; //6
 
         return ls_1;
+        //key: 0 0 0 0 1 1 1 0 0 0
     }
 
     //k1
     //Entrada: {00001} | {11000}
     //salida: 10100100
-    private int[] EightPrermutationsLS1(){
+    public int[] EightPrermutationsLS1(){
         int eightpermutations[] = new int[8];
 
         eightpermutations[0] = LS_1()[5]; //6
@@ -97,10 +99,11 @@ public class LlaveSDES {
         ls_2[9] = LS_1()[6]; //6
 
         return ls_2;
+        //key: 0 0 1 0 0 0 0 0 1 1
     }
 
     //k2
-    private int[] EightPrermutationsLS2(){
+    public int[] EightPrermutationsLS2(){
         int eightpermutations[] = new int[8];
 
         eightpermutations[0] = LS_2()[5]; //6
