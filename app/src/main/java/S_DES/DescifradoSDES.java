@@ -318,9 +318,17 @@ public class DescifradoSDES {
 
         //PASO 6 // K1 XOR PASO5
         int[] xork1 = XOReightbits(K1,expansion);
+        int[] leftk1 = LeftBits(xork1); //4 bits
+        int[] rightk1 = RightBits(xork1); //4 bits
 
         //PASO 7
+        int[] fourbitsk1 = FourPermutations( ConnectedTwoBits(LeftPosition(leftk1), RightPosition(rightk1)) );
 
+        //PASO 8
+        int[] xor4k1 = XORfourbits(rightbits,fourbitsk1);
+        int[] Ebits = ConnectedEightBits(xork1, leftXOR );
+
+        decryptionsdes = EightPermutations(Ebits);
 
         return decryptionsdes;
     }
