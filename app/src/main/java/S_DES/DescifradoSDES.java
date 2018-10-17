@@ -42,7 +42,7 @@ public class DescifradoSDES {
     }
 
     //dividir permutación de 8 bits,derecha
-    private int[] RightPermutations(int[] value){
+    private int[] RightBits(int[] value){
         int[] rightpermutations = new int[4];
 
         rightpermutations[0] = value[4];
@@ -111,6 +111,124 @@ public class DescifradoSDES {
         return xorfourpermutations;
     }
 
+    //Posición izquierda, retorna 2 bits,
+    private int[] LeftPosition(int[] value) {
+
+        int[] leftposition = new int[2];
+        int[] valuebox0 = new int[4];
+        int[][] box0 = new int[4][4];
+        int row=0;
+        int column=0;
+        int position=0;
+        int columnn=0;
+
+        value[0] = valuebox0[0];
+        value[1] = valuebox0[1];
+        value[2] = valuebox0[2];
+        value[3] = valuebox0[3];
+
+        S0();
+
+        int o1 = value[0];
+        int o2 = value[3];
+
+        row = (o1*2) + (o2*1); //2
+
+        int i1 = value[1];
+        int i2 = value[2];
+
+        column =(i1*2) + (i2*1); //3
+
+        position = S0()[row][column];
+
+
+        char[] rowColumn = Integer.toString(position).toCharArray();
+
+        for (int i=0; i<3; i++){
+
+            columnn=rowColumn[i];
+            leftposition[i] = columnn;
+
+        }
+
+
+        return leftposition;
+    }
+
+    //Posición derecha, retorna 2 bits,
+    private int[] RightPosition(int[] value) {
+
+        int[] leftposition = new int[2];
+        int[] valuebox0 = new int[4];
+        int[][] box0 = new int[4][4];
+        int row=0;
+        int column=0;
+        int position=0;
+        int columnn=0;
+
+        value[0] = valuebox0[0];
+        value[1] = valuebox0[1];
+        value[2] = valuebox0[2];
+        value[3] = valuebox0[3];
+
+        S1();
+
+        int o1 = value[0];
+        int o2 = value[3];
+
+        row = (o1*2) + (o2*1); //2
+
+        int i1 = value[1];
+        int i2 = value[2];
+
+        column =(i1*2) + (i2*1); //3
+
+        position = S1()[row][column];
+
+
+        char[] rowColumn = Integer.toString(position).toCharArray();
+
+        for (int i=0; i<3; i++){
+
+            columnn=rowColumn[i];
+            leftposition[i] = columnn;
+
+        }
+
+
+        return leftposition;
+    }
+
+    //Conecta dos bits, retorna un vector de cuatro bits
+    private int[] ConnectedTwoBits(int[] value1, int[] value2){
+        int[] connectedtwobits = new int[4];
+
+        connectedtwobits[0] = value1[0];
+        connectedtwobits[1] = value1[1];
+
+        connectedtwobits[2] = value2[0];
+        connectedtwobits[3] = value2[1];
+
+        return connectedtwobits;
+    }
+
+    //Conecta cuatro bits, retorna un vector de ocho bits
+    private int[] ConnectedEightBits(int[] value1, int[] value2){
+        int[] connectedtwobits = new int[8];
+
+        connectedtwobits[0] = value1[0];
+        connectedtwobits[1] = value1[1];
+        connectedtwobits[2] = value1[2];
+        connectedtwobits[3] = value1[3];
+
+        connectedtwobits[4] = value2[0];
+        connectedtwobits[5] = value2[1];
+        connectedtwobits[6] = value1[2];
+        connectedtwobits[7] = value1[3];
+
+        return connectedtwobits;
+    }
+
     //matriz 4*4
     private int[][] S0(){
         int[][] box0=new int[4][4];
@@ -168,6 +286,44 @@ public class DescifradoSDES {
     }
 
     //------------------------------------Proceso de descifrado------------------------------------------
+    DescifradoSDES Decryption = new DescifradoSDES(Key, K1, K2);
+
+
+    public int[] DecryptionSDES(int[] value1, int[] value2){
+        int[] decryptionsdes = new int[8];
+
+        //PASO1: Texto cifrado y aplicar permutación inversa
+        EightPermutations(value1);
+
+        //PASO2: expandir 4 bits, derecha de los 8 bits
+        int[] leftbits = LeftBits(EightPermutations(value1));
+        int[] rightbits = RightBits(EightPermutations(value1));
+
+        int[] expansionbits =ExpansionPermutations(rightbits);
+
+        //PASO3: K2 XOR expansion
+        int[] xorK2=XOReightbits(expansionbits, K2);
+        int[] left = LeftBits(xorK2); //4 bits
+        int[] right = RightBits(xorK2); //4 bits
+
+        //PASO3:
+        int[] fourbits = FourPermutations( ConnectedTwoBits(LeftPosition(left), RightPosition(right)) ); //leftbits
+
+        //PASO4: cifrado plano por la izquierda XOR cuatro bits permutados, invierte derecha con izquierda
+        int[] leftXOR = XORfourbits(fourbits, leftbits); //4 bits
+        ConnectedEightBits(rightbits, leftXOR );
+
+        //PASO5: expandir
+        int[] expansion= ExpansionPermutations(leftXOR); //8bits
+
+        //PASO 6 // K1 XOR PASO5
+        int[] xork1 = XOReightbits(K1,expansion);
+
+        //PASO 7
+
+
+        return decryptionsdes;
+    }
 
 
 }

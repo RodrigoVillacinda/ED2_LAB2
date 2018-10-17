@@ -83,6 +83,7 @@ public class LlaveSDES {
         int left[] = new int[5]; //{10000}
         int right[] = new int[5]; //{01100}
 
+
         ls_2[0] = LS_1()[2]; //3
         ls_2[1] = LS_1()[3]; //5
         ls_2[2] = LS_1()[4]; //2

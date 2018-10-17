@@ -97,7 +97,7 @@ public class CifradoSDES {
 
     private int[] S0(){
         int[] s0 = new int[2];
-        int[] opxork1 = new int[8];
+        int[] opxork1 = new int[4];
         int row=0;
         int column=0;
 
@@ -130,17 +130,15 @@ public class CifradoSDES {
         box0[3][2]=11;
         box0[3][3]=00;
 
-
         int o1 = opxork1[0];
         int o2 = opxork1[3];
 
         row = (o1*2) + (o2*1); //2
 
-
         int i1 = opxork1[1];
         int i2 = opxork1[2];
 
-        column =(i1*2) + (i2*1); //3
+        column = (i1*2) + (i2*1); //3
 
         roww = box0[row][column]; //00
 
