@@ -69,6 +69,7 @@ public class CifradoSDES {
         expandright[1] = temp[0]; //1
         expandright[2] = temp[1]; //2
         expandright[3] = temp[2]; //3
+
         expandright[4] = temp[1]; //2
         expandright[5] = temp[2]; //3
         expandright[6] = temp[3]; //4

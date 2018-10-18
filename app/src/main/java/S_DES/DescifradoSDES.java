@@ -74,10 +74,10 @@ public class DescifradoSDES {
         expansionpermutations[2] = value[1]; //2
         expansionpermutations[3] = value[2]; //3
 
-        expansionpermutations[0] = value[1]; //2
-        expansionpermutations[1] = value[2]; //3
-        expansionpermutations[2] = value[3]; //4
-        expansionpermutations[3] = value[0]; //1
+        expansionpermutations[4] = value[1]; //2
+        expansionpermutations[5] = value[2]; //3
+        expansionpermutations[6] = value[3]; //4
+        expansionpermutations[7] = value[0]; //1
 
         return expansionpermutations;
     }
@@ -206,10 +206,10 @@ public class DescifradoSDES {
         int roww=0;
         int columnn=0;
 
-        opxork1[0] = temp[4];
-        opxork1[1] = temp[5];
-        opxork1[2] = temp[6];
-        opxork1[3] = temp[7];
+        opxork1[0] = temp[0];
+        opxork1[1] = temp[1];
+        opxork1[2] = temp[2];
+        opxork1[3] = temp[3];
 
         int[][] box0=new int[4][4];
         box0[0][0]=00;
@@ -309,67 +309,27 @@ public class DescifradoSDES {
         return connectedtwobits;
     }
 
-    //matriz 4*4
-    private int[][] S0(){
-        int[][] box0=new int[4][4];
+    public int[] EightPermutationsInvers(int[] value){
+        int eightpermutations[] = new int[8];
+        int[] temp =value;
 
-        box0[0][0]=01;
-        box0[0][1]=00;
-        box0[0][2]=11;
-        box0[0][3]=10;
+        eightpermutations[0] = temp[3]; //4
+        eightpermutations[1] = temp[0]; //1
+        eightpermutations[2] = temp[2]; //3
+        eightpermutations[3] = temp[4]; //5
+        eightpermutations[4] = temp[6]; //7
+        eightpermutations[5] = temp[1]; //2
+        eightpermutations[6] = temp[7]; //8
+        eightpermutations[7] = temp[5]; //6
 
-        box0[1][0]=11;
-        box0[1][1]=00;
-        box0[1][2]=01;
-        box0[1][3]=00;
-
-        box0[2][0]=00;
-        box0[2][1]=10;
-        box0[2][2]=01;
-        box0[2][3]=11;
-
-        box0[3][0]=11;
-        box0[3][1]=01;
-        box0[3][2]=11;
-        box0[3][3]=00;
-
-
-        return  box0;
+        return eightpermutations;
     }
 
-    //matriz 4*4
-    private int[][] S1(){
-        int[][] box1=new int[4][4];
-
-        box1[0][0]=01;
-        box1[0][1]=00;
-        box1[0][2]=11;
-        box1[0][3]=10;
-
-        box1[1][0]=11;
-        box1[1][1]=00;
-        box1[1][2]=01;
-        box1[1][3]=00;
-
-        box1[2][0]=00;
-        box1[2][1]=10;
-        box1[2][2]=01;
-        box1[2][3]=11;
-
-        box1[3][0]=11;
-        box1[3][1]=01;
-        box1[3][2]=11;
-        box1[3][3]=00;
-
-
-        return  box1;
-    }
 
     //------------------------------------Proceso de descifrado------------------------------------------
-    DescifradoSDES Decryption = new DescifradoSDES(Key, K1, K2);
 
 
-    public int[] DecryptionSDES(int[] value1, int[] value2){
+    public int[] DecryptionSDES(int[] value1){
         int[] decryptionsdes = new int[8];
 
         //PASO1: Texto cifrado y aplicar permutación inversa
@@ -380,14 +340,19 @@ public class DescifradoSDES {
         int[] rightbits = RightBits(EightPermutations(value1));
 
         int[] expansionbits =ExpansionPermutations(rightbits);
+        //aqui
 
         //PASO3: K2 XOR expansion
         int[] xorK2=XOReightbits(expansionbits, K2);
+        //----------funciona---------
+
         int[] left = LeftBits(xorK2); //4 bits
         int[] right = RightBits(xorK2); //4 bits
 
         //PASO3:
-        int[] fourbits = FourPermutations( ConnectedTwoBits(LeftPosition(left), RightPosition(right)) ); //leftbits
+        int[] izquierda = LeftPosition(left);
+        int[] derecha = RightPosition(right);
+        int[] fourbits = FourPermutations( ConnectedTwoBits( izquierda, derecha) ); //leftbits
 
         //PASO4: cifrado plano por la izquierda XOR cuatro bits permutados, invierte derecha con izquierda
         int[] leftXOR = XORfourbits(fourbits, leftbits); //4 bits
@@ -406,9 +371,9 @@ public class DescifradoSDES {
 
         //PASO 8
         int[] xor4k1 = XORfourbits(rightbits,fourbitsk1);
-        int[] Ebits = ConnectedEightBits(xork1, leftXOR );
+        int[] Ebits = ConnectedEightBits(xor4k1, leftXOR );
 
-        decryptionsdes = EightPermutations(Ebits);
+        decryptionsdes = EightPermutationsInvers(Ebits);
 
         return decryptionsdes;
     }

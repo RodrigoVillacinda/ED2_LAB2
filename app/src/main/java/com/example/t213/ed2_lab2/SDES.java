@@ -28,6 +28,8 @@ public class SDES extends AppCompatActivity {
         int[] cif = cifrado.EightPermutationsIK2();
         //key : 0 1 0 0	0 1	1 0
 
+        DescifradoSDES descifrado = new DescifradoSDES(cif, key1, key2);
+        int[] des =descifrado.DecryptionSDES(cif);
 
 
         int x = 0;
