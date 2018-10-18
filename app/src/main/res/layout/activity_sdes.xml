@@ -13,8 +13,61 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="186dp"
-        android:layout_marginLeft="186dp"
-        android:layout_marginTop="35dp"
-        android:text="Archivo" />
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="9dp"
+        android:text="Cargar Archivo" />
+
+    <TextView
+        android:id="@+id/tvOutput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnCargarArchivo"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="-168dp"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/btnCifrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnCargarArchivo"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="286dp"
+        android:layout_marginBottom="1dp"
+        android:text="CIFRAR" />
+
+    <Button
+        android:id="@+id/btnDescifrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnCargarArchivo"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="167dp"
+        android:layout_marginBottom="0dp"
+        android:text="DESCIFRAR" />
+
+    <EditText
+        android:id="@+id/txtLlave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="103dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:maxLength="10" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="81dp"
+        android:text="Llave:" />
+
 </RelativeLayout>
