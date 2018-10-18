@@ -114,89 +114,169 @@ public class DescifradoSDES {
     //Posición izquierda, retorna 2 bits,
     private int[] LeftPosition(int[] value) {
 
-        int[] leftposition = new int[2];
-        int[] valuebox0 = new int[4];
-        int[][] box0 = new int[4][4];
+        int[] s0 = new int[2];
+        int[] opxork1 = new int[4];
         int row=0;
         int column=0;
-        int position=0;
+        int[] temp =value;
+
+        int roww=0;
         int columnn=0;
 
-        value[0] = valuebox0[0];
-        value[1] = valuebox0[1];
-        value[2] = valuebox0[2];
-        value[3] = valuebox0[3];
+        opxork1[0] = temp[0];
+        opxork1[1] = temp[1];
+        opxork1[2] = temp[2];
+        opxork1[3] = temp[3];
 
-        S0();
+        int[][] box0=new int[4][4];
+        box0[0][0]=01;
+        box0[0][1]=00;
+        box0[0][2]=11;
+        box0[0][3]=10;
 
-        int o1 = value[0];
-        int o2 = value[3];
+        box0[1][0]=11;
+        box0[1][1]=00;
+        box0[1][2]=01;
+        box0[1][3]=00;
+
+        box0[2][0]=00;
+        box0[2][1]=10;
+        box0[2][2]=01;
+        box0[2][3]=11;
+
+        box0[3][0]=11;
+        box0[3][1]=01;
+        box0[3][2]=11;
+        box0[3][3]=00;
+
+        int o1 = opxork1[0];
+        int o2 = opxork1[3];
 
         row = (o1*2) + (o2*1); //2
 
-        int i1 = value[1];
-        int i2 = value[2];
+        int i1 = opxork1[1];
+        int i2 = opxork1[2];
 
-        column =(i1*2) + (i2*1); //3
+        column = (i1*2) + (i2*1); //3
 
-        position = S0()[row][column];
+        roww = box0[row][column]; //00
+        char[] rowColumn=new char[2];
 
+        if (roww==0){
+            String rowwx = "00";
+            rowColumn = rowwx.toCharArray();
+        }
+        if (roww==1){
+            String rowwx = "01";
+            rowColumn = rowwx.toCharArray();
+        }
+        if (roww!=0 && roww!=1) {
+            rowColumn = Integer.toString(roww).toCharArray();
+        }
 
-        char[] rowColumn = Integer.toString(position).toCharArray();
+        for (int i=0; i<2; i++){
 
-        for (int i=0; i<3; i++){
+            String item=Integer.toString(rowColumn[i]);
+            int columnnn=Integer.parseInt(item);
+            columnn = columnnn;
+            if ( columnn == 49){
+                s0[i] = 1;
+            }
+            if ( columnn == 48){
+                s0[i] = 0;
+            }
 
-            columnn=rowColumn[i];
-            leftposition[i] = columnn;
 
         }
 
+        return  s0;
 
-        return leftposition;
+
     }
 
     //Posición derecha, retorna 2 bits,
     private int[] RightPosition(int[] value) {
 
-        int[] leftposition = new int[2];
-        int[] valuebox0 = new int[4];
-        int[][] box0 = new int[4][4];
+        int[] s0 = new int[2];
+        int[] opxork1 = new int[8];
         int row=0;
         int column=0;
-        int position=0;
+        int[] temp=value;
+
+        int roww=0;
         int columnn=0;
 
-        value[0] = valuebox0[0];
-        value[1] = valuebox0[1];
-        value[2] = valuebox0[2];
-        value[3] = valuebox0[3];
+        opxork1[0] = temp[4];
+        opxork1[1] = temp[5];
+        opxork1[2] = temp[6];
+        opxork1[3] = temp[7];
 
-        S1();
+        int[][] box0=new int[4][4];
+        box0[0][0]=00;
+        box0[0][1]=01;
+        box0[0][2]=10;
+        box0[0][3]=11;
 
-        int o1 = value[0];
-        int o2 = value[3];
+        box0[1][0]=10;
+        box0[1][1]=00;
+        box0[1][2]=01;
+        box0[1][3]=11;
+
+        box0[2][0]=11;
+        box0[2][1]=00;
+        box0[2][2]=01;
+        box0[2][3]=00;
+
+        box0[3][0]=10;
+        box0[3][1]=01;
+        box0[3][2]=00;
+        box0[3][3]=11;
+
+
+        int o1 = opxork1[0];
+        int o2 = opxork1[3];
 
         row = (o1*2) + (o2*1); //2
 
-        int i1 = value[1];
-        int i2 = value[2];
+
+        int i1 = opxork1[1];
+        int i2 = opxork1[2];
 
         column =(i1*2) + (i2*1); //3
 
-        position = S1()[row][column];
+        roww = box0[row][column]; //00
 
+        char[] rowColumn=new char[2];
 
-        char[] rowColumn = Integer.toString(position).toCharArray();
+        if (roww==0){
+            String rowwx = "00";
+            rowColumn = rowwx.toCharArray();
+        }
+        if (roww==1){
+            String rowwx = "01";
+            rowColumn = rowwx.toCharArray();
+        }
+        if (roww!=0 && roww!=1) {
+            rowColumn = Integer.toString(roww).toCharArray();
+        }
 
-        for (int i=0; i<3; i++){
+        for (int i=0; i<2; i++){
 
-            columnn=rowColumn[i];
-            leftposition[i] = columnn;
+            String item=Integer.toString(rowColumn[i]);
+            int columnnn=Integer.parseInt(item);
+            columnn = columnnn;
+            if ( columnn == 49){
+                s0[i] = 1;
+            }
+            if ( columnn == 48){
+                s0[i] = 0;
+            }
+
 
         }
 
+        return  s0;
 
-        return leftposition;
     }
 
     //Conecta dos bits, retorna un vector de cuatro bits
