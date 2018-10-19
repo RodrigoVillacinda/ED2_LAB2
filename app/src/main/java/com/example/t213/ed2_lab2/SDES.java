@@ -21,10 +21,11 @@ public class SDES extends AppCompatActivity {
         //K1: 1 0 1 0 0 1 0 0 (see in step 5)
         //K2: 0 1 0 0 0 0 1 1 (see in step 8)
 
+        //{0,1,1,0,1,1,0,1};
         int[] key1 = {1,0,1,0,0,1,0,0};
         int[] key2 = {0,1,0,0,0,0,1,1};
-        int[] entr = {0,1,1,0,1,1,0,1};
-        CifradoSDES cifrado = new CifradoSDES(entr,key1,key2);
+        int[] entr = {0,0,0,0,0,0,0,0};
+        CifradoSDES cifrado = new CifradoSDES(entr,k1,k2);
         int[] cif = cifrado.EightPermutationsIK2();
         //key : 0 1 0 0	0 1	1 0
 
