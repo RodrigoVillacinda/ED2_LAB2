@@ -148,7 +148,7 @@ public class SDES extends AppCompatActivity {
         });
 
 
-
+//terera
 
 
         //key: 1 0 1 0 0 0 0 0 1 0
