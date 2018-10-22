@@ -21,10 +21,15 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
+<<<<<<< HEAD
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+=======
+import java.io.FileReader;
+import java.io.IOException;
+>>>>>>> ec48b22328a1093c1800f521a536aff18b6e6110
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +45,7 @@ public class SDES extends AppCompatActivity {
 
     Button btnCargarArchivo;
     Button btnCifrar;
+<<<<<<< HEAD
     Button btnDescifrar;
     TextView tvOutput;
     TextView txtLlave;
@@ -51,6 +57,13 @@ public class SDES extends AppCompatActivity {
     int[] keyy=new int[10];
     int[] k1;
     int[] k2;
+=======
+    TextView tvOutput;
+    char[] charArray;
+    ArrayList<String> listaBinarios = new ArrayList<String>();
+    List listaArrays = new ArrayList();
+
+>>>>>>> ec48b22328a1093c1800f521a536aff18b6e6110
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +80,11 @@ public class SDES extends AppCompatActivity {
         btnCargarArchivo = findViewById(R.id.btnCargarArchivo);
         tvOutput = findViewById(R.id.tvOutput);
         btnCifrar = findViewById(R.id.btnCifrar);
+<<<<<<< HEAD
         txtLlave = findViewById(R.id.txtLlave);
         btnDescifrar = findViewById(R.id.btnDescifrar);
+=======
+>>>>>>> ec48b22328a1093c1800f521a536aff18b6e6110
 
         btnCargarArchivo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +98,7 @@ public class SDES extends AppCompatActivity {
         btnCifrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 String llave = txtLlave.getText().toString();
                 Llave = Integer.parseInt(llave);
                 keyy =conversor(llave);
@@ -143,14 +160,19 @@ public class SDES extends AppCompatActivity {
                 //DescifradoSDES descifrado = new DescifradoSDES(cif, k1, k2);
                 //int[] des =descifrado.DecryptionSDES(cif);
 
+=======
+>>>>>>> ec48b22328a1093c1800f521a536aff18b6e6110
 
             }
         });
 
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> ec48b22328a1093c1800f521a536aff18b6e6110
         //key: 1 0 1 0 0 0 0 0 1 0
         int[] keydata = {1,0,1,0,0,0,0,0,1,0};
         LlaveSDES key =new LlaveSDES(keydata);
@@ -177,6 +199,7 @@ public class SDES extends AppCompatActivity {
 
     }
 
+<<<<<<< HEAD
 
     public int[] conversor(String texto){
         //texto = "001010100101011111011010101101010000001110101011";
@@ -214,6 +237,8 @@ public class SDES extends AppCompatActivity {
     }
 
 
+=======
+>>>>>>> ec48b22328a1093c1800f521a536aff18b6e6110
     //Leer el contenido del archivo de texto
     private String readText(String input)
     {
@@ -266,9 +291,13 @@ public class SDES extends AppCompatActivity {
                 Toast.makeText(this, "" + path2+path, Toast.LENGTH_SHORT).show();
 
                 String lectura = readText(path2+path);
+<<<<<<< HEAD
                 //charArray = lectura.toCharArray();
                 String lec = "?rueba Prueba Prueba Prueba Prueba Prueba";
                 charArray = lec.toCharArray();
+=======
+                charArray = lectura.toCharArray();
+>>>>>>> ec48b22328a1093c1800f521a536aff18b6e6110
                 listaBinarios.clear();
 
                 for (char c:charArray)
