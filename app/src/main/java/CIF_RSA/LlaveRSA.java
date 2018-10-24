@@ -60,6 +60,7 @@ public class LlaveRSA {
             e = (e < euler) ? e : a;
 
         }
+        //e=3;
         return e;
     }
 
@@ -71,8 +72,9 @@ public class LlaveRSA {
         int euler = Euler();
 
         while (aritmeticamodular!=1){
-            aritmeticamodular = (e*n)%(euler);
             n++;
+
+            aritmeticamodular = (e*n)%(euler);
         }
 
         return n;

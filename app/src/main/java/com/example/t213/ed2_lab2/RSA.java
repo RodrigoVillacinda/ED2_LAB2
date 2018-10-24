@@ -22,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,8 +47,6 @@ public class RSA extends AppCompatActivity {
     List<int[]> listaArrays = new ArrayList();
     int[] data;
     int[] keyy=new int[10];
-    int[] k1;
-    int[] k2;
     int[] llave;
 
 
@@ -55,6 +54,32 @@ public class RSA extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rsa);
+
+        CIF_RSA.LlaveRSA key = new LlaveRSA();
+        int[] k = key.Claves();
+
+        String pruba = "esto es una prueba";
+        char charachter = pruba.charAt(0);
+        int ascii = (int) charachter;
+
+        //-----------------cifrado--------------------
+        CifradoRSA cifrado = new CifradoRSA(57, k);
+        BigInteger C = cifrado.Cifrado();
+
+        //-----------------Descifrado--------------------
+        DescifradoRSA descifrado = new DescifradoRSA(Integer.parseInt(C.toString()), k);
+        BigInteger N = descifrado.Descifrado();
+
+
+
+        double res=Math.pow(3,7);
+        double mod = res % 253;
+
+        BigInteger hola = new BigInteger("253");
+        BigInteger val =pow(new BigInteger("13"), new BigInteger("147") );
+        BigInteger r = val.mod(hola);
+        int p = 144%11;
+        int x =0;
 
 
         //Pidiendo permiso para acceder a almacenamiento
@@ -97,8 +122,8 @@ public class RSA extends AppCompatActivity {
                     int ascii  = (int)character[i];
                     //-----------------cifrado--------------------
                     CifradoRSA cifrado = new CifradoRSA(ascii, llave);
-                    int C = cifrado.Cifrado();
-                    cifra = cifra + Integer.toString(C);
+                    BigInteger C = cifrado.Cifrado();
+                    //cifra = cifra + Integer.toString(C);
                 }
                 grabar("S_DES", cifra);
             }
@@ -116,8 +141,8 @@ public class RSA extends AppCompatActivity {
                     int ascii  = (int)character[i];
                     //-----------------cifrado--------------------
                     DescifradoRSA descifrado = new DescifradoRSA(ascii, llave);
-                    int N = descifrado.Descifrado();
-                    descifra = descifra + Integer.toString(N);
+                    BigInteger N = descifrado.Descifrado();
+                    //descifra = descifra + Integer.toString(N);
                 }
 
 
@@ -125,28 +150,19 @@ public class RSA extends AppCompatActivity {
         });
 
 
-        CIF_RSA.LlaveRSA key = new LlaveRSA();
-        int[] k = key.Claves();
 
-        String pruba = "Esto es una prueba";
-        char charachter = pruba.charAt(0);
-        int ascii = (int) charachter;
-
-        //-----------------cifrado--------------------
-        CifradoRSA cifrado = new CifradoRSA(ascii, k);
-        int C = cifrado.Cifrado();
-
-        //-----------------Descifrado--------------------
-        DescifradoRSA descifrado = new DescifradoRSA(C, k);
-        int N = descifrado.Descifrado();
-
-
-        int el = 4^4;
-        int p = 144%11;
-        int x =0;
 
     }
 
+    public BigInteger pow(BigInteger base, BigInteger exponent) {
+        BigInteger result = BigInteger.ONE;
+        while (exponent.signum() > 0) {
+            if (exponent.testBit(0)) result = result.multiply(base);
+            base = base.multiply(base);
+            exponent = exponent.shiftRight(1);
+        }
+        return result;
+    }
 
     public int[] conversor(String texto){
         //texto = "001010100101011111011010101101010000001110101011";

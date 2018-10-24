@@ -1,5 +1,7 @@
 package CIF_RSA;
 
+import java.math.BigInteger;
+
 public class CifradoRSA {
 
     private int Valor;
@@ -10,20 +12,32 @@ public class CifradoRSA {
         this.llave = llave;
     }
 
-    public int Cifrado(){
-        int cifrado=0;
+    public BigInteger pow(BigInteger base, BigInteger exponent) {
+        BigInteger result = BigInteger.ONE;
+        while (exponent.signum() > 0) {
+            if (exponent.testBit(0)) result = result.multiply(base);
+            base = base.multiply(base);
+            exponent = exponent.shiftRight(1);
+        }
+        return result;
+    }
 
+    public BigInteger Cifrado(){
 
         int n = llave[2];
-        int e = llave[3];
+        int d = llave[3];
 
         int base = Valor;
-        int exponente = e;
-        int resultado = (int)Math.pow(base,exponente);
+        int exponente = d;
 
-        cifrado = resultado % (n);
+        BigInteger no = new BigInteger(Integer.toString(n));
+        BigInteger val =pow(new BigInteger(Integer.toString(base)), new BigInteger(Integer.toString(exponente)) );
+        BigInteger N = val.mod(no);
 
-        return cifrado;
+
+
+
+        return N;
     }
 
 }
