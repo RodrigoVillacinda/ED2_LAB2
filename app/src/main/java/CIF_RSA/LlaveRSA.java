@@ -4,9 +4,16 @@ import java.util.Random;
 
 public class LlaveRSA {
 
-    private int P = GenerarNumerosPrimos();
-    private int Q =  GenerarNumerosPrimos();
+    public LlaveRSA(int p, int q) {
+        P = p;
+        Q = q;
+    }
 
+    private int P;
+    private int Q;
+
+    //private int P =11;
+   // private int Q =23;
 
     private int GenerarNumerosPrimos(){
         int primo = 0;
@@ -16,7 +23,7 @@ public class LlaveRSA {
 
 
 
-        while (primo == 0 || primo == 1 || primo == 2){
+        while (primo == 0 || primo == 1 || primo == 2 ){
 
             primo = random.nextInt(25);
 
@@ -30,6 +37,9 @@ public class LlaveRSA {
         }
             primo = ( contador <= 2)?primo:a;
             contador = 0;
+           //if (primo<10){
+             //   primo=0;
+            //}
         }
 
         return primo;
@@ -37,6 +47,10 @@ public class LlaveRSA {
 
     //Generación de módulo N
     private int ModuloClaves(){
+        while (P==Q){
+            P = GenerarNumerosPrimos();
+            Q =  GenerarNumerosPrimos();
+        }
         int n=0;
         n=Q*P;
         return n;

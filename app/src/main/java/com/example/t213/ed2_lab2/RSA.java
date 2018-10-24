@@ -55,15 +55,23 @@ public class RSA extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rsa);
 
-        CIF_RSA.LlaveRSA key = new LlaveRSA();
+        //error
+        //Pidiendo permiso para acceder a almacenamiento
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
+        }
+
+        CIF_RSA.LlaveRSA key = new LlaveRSA(11,23);
         int[] k = key.Claves();
 
         String pruba = "esto es una prueba";
         char charachter = pruba.charAt(0);
         int ascii = (int) charachter;
-
+//
         //-----------------cifrado--------------------
-        CifradoRSA cifrado = new CifradoRSA(57, k);
+        CifradoRSA cifrado = new CifradoRSA(8, k);
         BigInteger C = cifrado.Cifrado();
 
         //-----------------Descifrado--------------------
@@ -82,20 +90,15 @@ public class RSA extends AppCompatActivity {
         int x =0;
 
 
-        //Pidiendo permiso para acceder a almacenamiento
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED)
-        {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
-        }
 
+        //-------------------------------------------------mapeo-------------------------------------------------------------------
         btnCargarArchivo = findViewById(R.id.btnCargarArchivo);
         tvOutput = findViewById(R.id.tvOutput);
         btnCifrar = findViewById(R.id.btnCifrar);
         txtLlave = findViewById(R.id.txtLlave);
         btnDescifrar = findViewById(R.id.btnDescifrar);
 
-
+        //-------------------------------------------------Botones-------------------------------------------------------------------------
         btnCargarArchivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +113,7 @@ public class RSA extends AppCompatActivity {
             public void onClick(View v) {
 
                 //-------------genera llave---------------
-                CIF_RSA.LlaveRSA key = new LlaveRSA();
+                CIF_RSA.LlaveRSA key = new LlaveRSA(11,23);
                 llave = key.Claves();
 
                 int[] cif;
@@ -251,9 +254,9 @@ public class RSA extends AppCompatActivity {
                 Toast.makeText(this, "" + path2+path, Toast.LENGTH_SHORT).show();
 
                 String lectura = readText(path2+path);
-                //charArray = lectura.toCharArray();
+                charArray = lectura.toCharArray();
                 String lec = "?rueba Prueba Prueba Prueba Prueba Prueba";
-                charArray = lec.toCharArray();
+                charArray = lectura.toCharArray();
                 listaBinarios.clear();
 
                 for (char c:charArray)

@@ -26,8 +26,8 @@ public class DescifradoRSA {
     public BigInteger Descifrado(){
         //BigInteger N = new BigInteger("0");
 
-        int n = llave[0];
-        int d = llave[1];
+        int n = llave[0]; //d
+        int d = llave[1]; //d
 
         int base = Valor;
         int exponente = d;
@@ -35,7 +35,6 @@ public class DescifradoRSA {
         BigInteger no = new BigInteger(Integer.toString(n));
         BigInteger val =pow(new BigInteger(Integer.toString(base)), new BigInteger(Integer.toString(exponente)) );
         BigInteger N = val.mod(no);
-
 
 
 

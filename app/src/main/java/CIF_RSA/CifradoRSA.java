@@ -24,20 +24,19 @@ public class CifradoRSA {
 
     public BigInteger Cifrado(){
 
-        int n = llave[2];
-        int d = llave[3];
+        int n = llave[2]; //n
+        int e = llave[3]; //e
 
         int base = Valor;
-        int exponente = d;
+        int exponente = e;
 
-        BigInteger no = new BigInteger(Integer.toString(n));
+        BigInteger N = new BigInteger(Integer.toString(n)); //n
         BigInteger val =pow(new BigInteger(Integer.toString(base)), new BigInteger(Integer.toString(exponente)) );
-        BigInteger N = val.mod(no);
+        BigInteger cifrado = val.mod(N); //val % n
 
 
 
-
-        return N;
+        return cifrado;
     }
 
 }
