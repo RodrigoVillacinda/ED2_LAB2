@@ -37,11 +37,22 @@ public class RSA extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
     private static final int PERMISSION_REQUEST_STORAGE = 1000;
 
+    //------------botones-----------------
     Button btnCargarArchivo;
     Button btnCifrar;
     Button btnDescifrar;
+    Button btnGenerar;
+    //-------------txt--------------------
     TextView tvOutput;
-    TextView txtLlave;
+    TextView txtP;
+    TextView txtQ;
+    //-------------variables--------------
+    String P;
+    String Q;
+    int kprivadaN;
+    int kprivadaD;
+    int kpublicN;
+    int kpublicD;
     char[] charArray;
     ArrayList<String> listaBinarios = new ArrayList<String>();
     List<int[]> listaArrays = new ArrayList();
@@ -55,13 +66,7 @@ public class RSA extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rsa);
 
-        //error
-        //Pidiendo permiso para acceder a almacenamiento
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED)
-        {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
-        }
+
 
         CIF_RSA.LlaveRSA key = new LlaveRSA(11,23);
         int[] k = key.Claves();
@@ -78,8 +83,7 @@ public class RSA extends AppCompatActivity {
         DescifradoRSA descifrado = new DescifradoRSA(Integer.parseInt(C.toString()), k);
         BigInteger N = descifrado.Descifrado();
 
-
-
+        
         double res=Math.pow(3,7);
         double mod = res % 253;
 
@@ -89,16 +93,46 @@ public class RSA extends AppCompatActivity {
         int p = 144%11;
         int x =0;
 
-
+        //error
+        //Pidiendo permiso para acceder a almacenamiento
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
+        }
 
         //-------------------------------------------------mapeo-------------------------------------------------------------------
         btnCargarArchivo = findViewById(R.id.btnCargarArchivo);
-        tvOutput = findViewById(R.id.tvOutput);
+        btnGenerar = findViewById(R.id.btnGenerar);
         btnCifrar = findViewById(R.id.btnCifrar);
-        txtLlave = findViewById(R.id.txtLlave);
         btnDescifrar = findViewById(R.id.btnDescifrar);
 
+        tvOutput = findViewById(R.id.tvOutput);
+        txtP = findViewById(R.id.txtP);
+        txtQ = findViewById(R.id.txtQ);
         //-------------------------------------------------Botones-------------------------------------------------------------------------
+
+
+        btnGenerar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                P = txtP.getText().toString();
+                Q = txtQ.getText().toString();
+                CIF_RSA.LlaveRSA key = new LlaveRSA(Integer.parseInt(P),Integer.parseInt(Q));
+                llave = key.Claves();
+
+                kprivadaN = llave[0]; //n
+                kprivadaD = llave[1]; //d
+                grabar("KeyPrivate", Integer.toHexString(kprivadaN) + "," + Integer.toHexString(kprivadaD));
+
+                kpublicN = llave[2]; //n
+                kpublicD = llave[2]; //e
+                grabar("KeyPrivate", Integer.toHexString(kpublicN) + "," + Integer.toHexString(kpublicD));
+
+            }
+        });
+
+
         btnCargarArchivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,11 +146,6 @@ public class RSA extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //-------------genera llave---------------
-                CIF_RSA.LlaveRSA key = new LlaveRSA(11,23);
-                llave = key.Claves();
-
-                int[] cif;
                 char[] character;
                 String cifra="";
                 for (int i=0; i<charArray.length; i++) {
@@ -126,9 +155,9 @@ public class RSA extends AppCompatActivity {
                     //-----------------cifrado--------------------
                     CifradoRSA cifrado = new CifradoRSA(ascii, llave);
                     BigInteger C = cifrado.Cifrado();
-                    //cifra = cifra + Integer.toString(C);
+                    cifra = cifra + C.toString();
                 }
-                grabar("S_DES", cifra);
+                grabar("cifrado", cifra);
             }
         });
 
@@ -142,12 +171,12 @@ public class RSA extends AppCompatActivity {
 
                     character = charArray;
                     int ascii  = (int)character[i];
-                    //-----------------cifrado--------------------
+                    //-----------------descifrado--------------------
                     DescifradoRSA descifrado = new DescifradoRSA(ascii, llave);
                     BigInteger N = descifrado.Descifrado();
-                    //descifra = descifra + Integer.toString(N);
+                    descifra = descifra + N.toString();
                 }
-
+                grabar("descifrado", descifra);
 
             }
         });
